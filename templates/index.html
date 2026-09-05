@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MedHistory | Healthcare Portal</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon">✚</div>
+
+            <div>
+                <h1>MedHistory</h1>
+                <p>Smart Medical History System</p>
+            </div>
+        </div>
+    </header>
+
+
+    <main class="landing">
+
+        <section class="hero">
+
+            <div class="hero-icon">✚</div>
+
+            <p class="eyebrow">SMART HEALTHCARE</p>
+
+            <h2>
+                Medical history,<br>
+                <span>when it matters.</span>
+            </h2>
+
+            <p class="hero-text">
+                Securely access the right patient information
+                when it is needed most.
+            </p>
+
+        </section>
+
+
+        <section class="access-section">
+
+            <h3>Choose your access</h3>
+
+            <div class="access-grid">
+
+
+                <!-- OPEN PROFILE -->
+
+                <a href="/open" class="access-card">
+
+                    <div class="card-icon open-icon">
+                        👁
+                    </div>
+
+                    <div class="card-content">
+                        <h4>Open Profile</h4>
+
+                        <p>
+                            View limited emergency information
+                            available for authorized public access.
+                        </p>
+                    </div>
+
+                    <span class="arrow">→</span>
+
+                </a>
+
+
+                <!-- PATIENT -->
+
+                <a href="/user" class="access-card">
+
+                    <div class="card-icon user-icon">
+                        👤
+                    </div>
+
+                    <div class="card-content">
+                        <h4>Patient Portal</h4>
+
+                        <p>
+                            Access and manage your personal
+                            medical information and history.
+                        </p>
+                    </div>
+
+                    <span class="arrow">→</span>
+
+                </a>
+
+
+                <!-- DOCTOR -->
+
+                <a href="/doctor" class="access-card doctor-card">
+
+                    <div class="card-icon doctor-icon">
+                        🩺
+                    </div>
+
+                    <div class="card-content">
+                        <h4>Doctor Portal</h4>
+
+                        <p>
+                            Access authorized patient history,
+                            reports and emergency summaries.
+                        </p>
+                    </div>
+
+                    <span class="arrow">→</span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>
+            © 2026 MedHistory • Privacy-first healthcare
+        </p>
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+
+D3V1/
+d2.1/
+d2.1_app.js
+
+static/uploads/
+
+data/uploads/

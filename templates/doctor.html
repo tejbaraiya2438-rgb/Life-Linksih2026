@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Portal | MedHistory</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">✚</div>
+
+            <div>
+                <h1>MedHistory</h1>
+                <p>Doctor Portal</p>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="portal-page">
+
+        <a href="/" class="back-button">
+            ← Back
+        </a>
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <section class="portal-header">
+
+            <div class="portal-icon">
+                🩺
+            </div>
+
+            <div>
+
+                <p class="eyebrow">
+                    AUTHORIZED ACCESS
+                </p>
+
+                <h2>
+                    Doctor Portal
+                </h2>
+
+                <p>
+                    Access and securely update a patient's
+                    medical record.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PATIENT SEARCH
+        ================================================== -->
+
+        <section class="search-box">
+
+            <h3>
+                Find Patient Record
+            </h3>
+
+            <p>
+                Enter the authorized Patient ID to access
+                the medical record.
+            </p>
+
+            <div class="search-row">
+
+                <input
+                    type="text"
+                    id="doctorPatientId"
+                    placeholder="Enter Patient ID"
+                    autocomplete="off"
+                >
+
+                <button onclick="loadDoctorProfile()">
+                    View Record
+                </button>
+
+            </div>
+
+            <p class="demo-note">
+                Demo mode: Use PAT1001, PAT1002 or PAT1003.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             DOCTOR DASHBOARD
+        ================================================== -->
+
+        <section
+            id="doctorDashboard"
+            class="doctor-dashboard hidden"
+        >
+
+
+            <!-- =================================================
+                 PATIENT HEADER
+            ================================================== -->
+
+            <section class="doctor-patient-header">
+
+                <div class="patient-avatar">
+                    👤
+                </div>
+
+                <div class="doctor-patient-info">
+
+                    <p class="card-label">
+                        PATIENT MEDICAL RECORD
+                    </p>
+
+                    <h3 id="doctorPatientName">
+                        Patient Name
+                    </h3>
+
+                    <p id="doctorPatientBasic">
+                        Age • Blood Group • Patient ID
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 CRITICAL INFORMATION
+            ================================================== -->
+
+            <section class="critical-section">
+
+                <div class="critical-title">
+
+                    <span class="critical-icon">
+                        ⚠
+                    </span>
+
+                    <div>
+
+                        <p class="eyebrow">
+                            CHECK FIRST
+                        </p>
+
+                        <h3>
+                            Critical Medical Information
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="critical-grid">
+
+                    <div class="critical-card">
+
+                        <span>
+                            Blood Group
+                        </span>
+
+                        <strong id="doctorBlood">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="critical-card">
+
+                        <span>
+                            Allergies
+                        </span>
+
+                        <strong id="doctorAllergy">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="critical-card">
+
+                        <span>
+                            Known Conditions
+                        </span>
+
+                        <strong id="doctorCondition">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="critical-card">
+
+                        <span>
+                            Emergency Contact
+                        </span>
+
+                        <strong id="doctorEmergencyContact">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 MEDICAL SUMMARY
+            ================================================== -->
+
+            <section class="dashboard-section">
+
+                <div class="section-title">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            MEDICAL SUMMARY
+                        </p>
+
+                        <h3>
+                            Patient Overview
+                        </h3>
+
+                    </div>
+
+                    <span class="section-symbol">
+                        🩺
+                    </span>
+
+                </div>
+
+
+                <div class="doctor-info-grid">
+
+                    <div class="info-item">
+
+                        <span>
+                            Patient ID
+                        </span>
+
+                        <strong id="doctorPatientIdDisplay">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span>
+                            Age
+                        </span>
+
+                        <strong id="doctorAge">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span>
+                            Blood Group
+                        </span>
+
+                        <strong id="doctorBloodSummary">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span>
+                            Current Condition
+                        </span>
+
+                        <strong id="doctorConditionSummary">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 MEDICAL HISTORY
+            ================================================== -->
+
+            <section class="dashboard-section">
+
+                <div class="section-title">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            MEDICAL HISTORY
+                        </p>
+
+                        <h3>
+                            Patient Records
+                        </h3>
+
+                    </div>
+
+                    <span class="section-symbol">
+                        📋
+                    </span>
+
+                </div>
+
+
+                <div class="doctor-module-grid">
+
+
+                    <!-- SURGERY -->
+
+                    <div class="doctor-module-card">
+
+                        <div class="module-icon">
+                            🏥
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Surgery History
+                            </h4>
+
+                            <p>
+                                Previous operations and
+                                procedures.
+                            </p>
+
+                            <button
+                                class="record-button"
+                                type="button"
+                            >
+                                View History →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRESCRIPTIONS -->
+
+                    <div class="doctor-module-card">
+
+                        <div class="module-icon">
+                            💊
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Prescriptions
+                            </h4>
+
+                            <p>
+                                Previous prescriptions and
+                                medication records.
+                            </p>
+
+                            <button
+                                class="record-button"
+                                type="button"
+                            >
+                                View Prescriptions →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- VISITS -->
+
+                    <div class="doctor-module-card">
+
+                        <div class="module-icon">
+                            🩺
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Visit History
+                            </h4>
+
+                            <p>
+                                Previous consultations,
+                                diagnoses and visits.
+                            </p>
+
+                            <button
+                                class="record-button"
+                                type="button"
+                            >
+                                View Visits →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- REPORTS -->
+
+                    <div class="doctor-module-card">
+
+                        <div class="module-icon">
+                            📄
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Medical Reports
+                            </h4>
+
+                            <p>
+                                Laboratory reports,
+                                scans and documents.
+                            </p>
+
+                            <button
+                                class="record-button"
+                                type="button"
+                            >
+                                View Reports →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 UPDATE MEDICAL RECORD
+            ================================================== -->
+
+            <section class="dashboard-section">
+
+                <div class="section-title">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            RECORD MANAGEMENT
+                        </p>
+
+                        <h3>
+                            Update Medical Record
+                        </h3>
+
+                    </div>
+
+                    <span class="section-symbol">
+                        ✏️
+                    </span>
+
+                </div>
+
+
+                <div class="update-record-grid">
+
+
+                    <!-- ADD VISIT -->
+
+                    <div class="update-card">
+
+                        <div class="module-icon">
+                            🩺
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Add New Visit
+                            </h4>
+
+                            <p>
+                                Record a new consultation,
+                                diagnosis or treatment.
+                            </p>
+
+                            <button
+                                class="primary-action"
+                                type="button"
+				onclick="showAddVisitForm()"
+
+                            >
+                                Add Visit
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADD MEDICATION -->
+
+                    <div class="update-card">
+
+                        <div class="module-icon">
+                            💊
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Add Medication
+                            </h4>
+
+                            <p>
+                                Add or update prescribed
+                                medications.
+                            </p>
+
+                            <button
+                                class="primary-action"
+                                type="button"
+				onclick="addMedication()"
+                            >
+                                Add Medication
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SURGERY -->
+
+                    <div class="update-card">
+
+                        <div class="module-icon">
+                            🏥
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Add Surgery
+                            </h4>
+
+                            <p>
+                                Record a previous or new
+                                surgical procedure.
+                            </p>
+
+                            <button
+                                class="primary-action"
+                                type="button"
+				onclick="addSurgery()"
+                            >
+                                Add Surgery
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ALLERGY -->
+
+                    <div class="update-card">
+
+                        <div class="module-icon">
+                            ⚠
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Update Allergy
+                            </h4>
+
+                            <p>
+                                Add important allergy or
+                                adverse reaction information.
+                            </p>
+
+                            <button
+                                class="primary-action"
+                                type="button"
+				onclick="updateAllergy()"
+                            >
+                                Update Allergy
+                            </button>
+
+                        </div>
+
+                    </div>
+		<!-- ADD VISIT FORM -->
+
+<div
+    id="addVisitForm"
+    class="update-form hidden"
+>
+
+    <h4>
+        Add New Visit
+    </h4>
+
+    <div class="form-grid">
+
+        <div>
+            <label for="visitDate">
+                Visit Date
+            </label>
+
+            <input
+                type="date"
+                id="visitDate"
+            >
+        </div>
+
+
+        <div>
+            <label for="visitDoctor">
+                Consulting Doctor
+            </label>
+
+            <input
+                type="text"
+                id="visitDoctor"
+                placeholder="Doctor name"
+            >
+        </div>
+
+    </div>
+
+
+    <label for="visitDiagnosis">
+        Diagnosis
+    </label>
+
+    <textarea
+        id="visitDiagnosis"
+        rows="3"
+        placeholder="Enter diagnosis..."
+    ></textarea>
+
+
+    <label for="visitTreatment">
+        Treatment
+    </label>
+
+    <textarea
+        id="visitTreatment"
+        rows="3"
+        placeholder="Enter treatment..."
+    ></textarea>
+
+
+    <label for="visitNotes">
+        Notes
+    </label>
+
+    <textarea
+        id="visitNotes"
+        rows="3"
+        placeholder="Additional notes..."
+    ></textarea>
+
+
+    <div class="form-actions">
+
+        <button
+            type="button"
+            class="primary-action"
+            onclick="saveVisit()"
+        >
+            Save Visit
+        </button>
+
+        <button
+            type="button"
+            class="record-button"
+            onclick="hideAddVisitForm()"
+        >
+            Cancel
+        </button>
+
+    </div>
+
+</div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 DOCUMENT UPLOAD
+            ================================================== -->
+
+            <section class="dashboard-section">
+
+                <div class="section-title">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            MEDICAL DOCUMENTS
+                        </p>
+
+                        <h3>
+                            Upload Medical Record
+                        </h3>
+
+                    </div>
+
+                    <span class="section-symbol">
+                        📤
+                    </span>
+
+                </div>
+
+
+                <div class="upload-panel">
+
+                    <div class="upload-icon">
+                        📄
+                    </div>
+
+                    <h4>
+                        Add a Medical Document
+                    </h4>
+
+                    <p>
+                        Upload a prescription, laboratory report,
+                        discharge summary or other relevant
+                        medical document.
+                    </p>
+
+
+                    <div class="upload-form">
+
+
+                        <label for="documentType">
+                            Document Type
+                        </label>
+
+                        <select id="documentType">
+
+                            <option value="">
+                                Select document type
+                            </option>
+
+                            <option value="prescription">
+                                Prescription
+                            </option>
+
+                            <option value="lab_report">
+                                Laboratory Report
+                            </option>
+
+                            <option value="discharge_summary">
+                                Discharge Summary
+                            </option>
+
+                            <option value="medical_report">
+                                Medical Report
+                            </option>
+
+                            <option value="surgery_record">
+                                Surgery Record
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+
+                        <label for="documentDate">
+                            Document Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="documentDate"
+                        >
+
+
+                        <label for="documentNotes">
+                            Notes
+                        </label>
+
+                        <textarea
+                            id="documentNotes"
+                            rows="4"
+                            placeholder="Add relevant notes about this document..."
+                        ></textarea>
+
+
+                        <label for="medicalFile">
+                            Medical File
+                        </label>
+
+                        <input
+                            type="file"
+                            id="medicalFile"
+                            accept=".pdf,.jpg,.jpeg,.png"
+                        >
+
+
+                        <button
+                            type="button"
+                            class="primary-action upload-button"
+                        >
+                            Upload Document
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 AUDIT / SECURITY NOTICE
+            ================================================== -->
+
+            <section class="doctor-privacy">
+
+                <span>
+                    🔐
+                </span>
+
+                <div>
+
+                    <strong>
+                        Protected Medical Information
+                    </strong>
+
+                    <p>
+                        Updates and uploaded documents should be
+                        accessible only to authorized healthcare
+                        professionals. Every future record change
+                        will be associated with an authorized
+                        doctor and timestamp.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+
+        <!-- =================================================
+             NOT FOUND
+        ================================================== -->
+
+        <section
+            id="doctorNotFound"
+            class="not-found hidden"
+        >
+
+            <div>
+                ⚠
+            </div>
+
+            <h3>
+                Patient record not found
+            </h3>
+
+            <p>
+                Please check the Patient ID and try again.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+
+</html>

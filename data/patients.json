@@ -1,0 +1,113 @@
+{
+    "PAT1001": {
+        "name": "Aarav Sharma",
+        "age": 42,
+        "blood_group": "B+",
+        "condition": "Diabetes",
+        "allergy": "Penicillin",
+        "emergency_contact": "Demo Contact",
+        "visits": [
+            {
+                "date": "2026-08-30",
+                "doctor": "mohan das",
+                "diagnosis": "visited on the 30th of August routine check-up ",
+                "treatment": "check-up ",
+                "notes": "no"
+            },
+            {
+                "date": "2026-08-31",
+                "doctor": "Jai shankar",
+                "diagnosis": "Checking",
+                "treatment": "Routine check-up",
+                "notes": "He is improving"
+            }
+        ],
+        "medications": [],
+        "surgeries": [
+            {
+                "id": "f079ee32f90b44d79d0d3c916d4dd3c7",
+                "name": "kidney stone",
+                "date": "2026-09-04",
+                "hospital": "whatever 😏",
+                "doctor": "jay pratap",
+                "notes": "nothing to worry"
+            }
+        ],
+        "allergy_history": [],
+        "documents": [
+            {
+                "id": "e28a5279e5374f408da9d0621ac750db",
+                "type": "prescription",
+                "date": "2026-08-27",
+                "notes": "No ",
+                "original_name": "Screenshot_2026-08-29-20-20-16-29_08626e35eb99698b0717ca70323a2481.jpg",
+                "file_name": "4d808cd51ca6406695fafb045fa98196.jpg",
+                "uploaded_at": "2026-08-30T16:44:15",
+                "url": "/uploads/4d808cd51ca6406695fafb045fa98196.jpg"
+            },
+            {
+                "id": "8eff7e29799842e18fc3ddac7999afce",
+                "type": "other",
+                "date": "2026-08-31",
+                "notes": "Whatever",
+                "original_name": "Screenshot_2026-08-30-17-09-19-00_40deb401b9ffe8e1df2f1cc5ba480b12.jpg",
+                "file_name": "e35b55c6c9104d7daf46d0443021e54e.jpg",
+                "uploaded_at": "2026-08-31T17:09:34",
+                "url": "/static/uploads/e35b55c6c9104d7daf46d0443021e54e.jpg"
+            }
+        ]
+    },
+    "PAT1002": {
+        "name": "Riya Patel",
+        "age": 29,
+        "blood_group": "O+",
+        "condition": "Asthma",
+        "allergy": "None Known",
+        "emergency_contact": "Demo Contact",
+        "visits": [
+            {
+                "date": "2026-08-30",
+                "doctor": "Mr.sharma",
+                "diagnosis": "Routine check-up",
+                "treatment": "Just check-up",
+                "notes": "She is recovering"
+            }
+        ],
+        "medications": [],
+        "surgeries": [],
+        "allergy_history": [],
+        "documents": []
+    },
+    "PAT1003": {
+        "name": "Kabir Mehta",
+        "age": 55,
+        "blood_group": "A+",
+        "condition": "Hypertension",
+        "allergy": "Sulfa Drugs",
+        "emergency_contact": "Demo Contact",
+        "visits": [
+            {
+                "date": "2026-09-03",
+                "doctor": "Mr.mehra",
+                "diagnosis": "Routine check-up",
+                "treatment": "Regular medicine",
+                "notes": "No"
+            }
+        ],
+        "medications": [],
+        "surgeries": [],
+        "allergy_history": [],
+        "documents": [
+            {
+                "id": "67a1325da0bf4bb5b68c647ebc0875fc",
+                "type": "medical_report",
+                "date": "2026-09-03",
+                "notes": "Nothing",
+                "original_name": "Screenshot_2026-09-03-19-39-45-59_40deb401b9ffe8e1df2f1cc5ba480b12.jpg",
+                "file_name": "baf8fa436c45452fb950dbe563c4470f.jpg",
+                "uploaded_at": "2026-09-03T19:57:12",
+                "url": "/static/uploads/baf8fa436c45452fb950dbe563c4470f.jpg"
+            }
+        ]
+    }
+}
