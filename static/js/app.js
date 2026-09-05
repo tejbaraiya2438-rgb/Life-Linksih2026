@@ -2808,3 +2808,337 @@ function closeUserModule() {
     }
 }
 
+
+
+/* =========================================================
+   EMERGENCY SUMMARY
+========================================================= */
+
+async function showEmergencySummary() {
+
+    const input =
+        document.getElementById(
+            "emergencyPatientId"
+        );
+
+    if (!input) {
+        console.error(
+            "emergencyPatientId input not found"
+        );
+        return;
+    }
+
+    const patientId =
+        input.value.trim();
+
+    if (!patientId) {
+        alert(
+            "Please enter a Patient ID"
+        );
+        return;
+    }
+
+    try {
+
+        const data =
+            await apiJSON(
+                "/api/patient/" +
+                encodeURIComponent(
+                    patientId
+                )
+            );
+
+        const patient =
+            data.patient;
+
+        const visits =
+            Array.isArray(patient.visits)
+                ? patient.visits
+                : [];
+
+        const medications =
+            Array.isArray(patient.medications)
+                ? patient.medications
+                : [];
+
+        const surgeries =
+            Array.isArray(patient.surgeries)
+                ? patient.surgeries
+                : [];
+
+        /* -----------------------------------------
+           LATEST RECORDS
+        ----------------------------------------- */
+
+        const latestVisit =
+            visits.length
+                ? visits[visits.length - 1]
+                : null;
+
+        const latestMedication =
+            medications.length
+                ? medications[
+                    medications.length - 1
+                ]
+                : null;
+
+        /* -----------------------------------------
+           SAFE VALUES
+        ----------------------------------------- */
+
+        const allergy =
+            patient.allergy ||
+            "None reported";
+
+        const condition =
+            patient.condition ||
+            "No condition reported";
+
+        const surgeryText =
+            surgeries.length
+                ? surgeries
+                    .map(
+                        surgery =>
+                            (surgery.name ||
+                                "Surgical procedure") +
+                            (
+                                surgery.date
+                                    ? " — " +
+                                      surgery.date
+                                    : ""
+                            )
+                    )
+                    .join("<br>")
+                : "No surgery recorded";
+
+        const prescriptionText =
+            latestMedication
+                ? (
+                    latestMedication.name ||
+                    "Medication recorded"
+                ) +
+                (
+                    latestMedication.dosage
+                        ? " — " +
+                          latestMedication.dosage
+                        : ""
+                ) +
+                (
+                    latestMedication.frequency
+                        ? " (" +
+                          latestMedication.frequency +
+                          ")"
+                        : ""
+                )
+                : "No prescription recorded";
+
+        const visitText =
+            latestVisit
+                ? (
+                    latestVisit.diagnosis ||
+                    latestVisit.treatment ||
+                    "Recent visit recorded"
+                )
+                : "No recent visit recorded";
+
+        /* -----------------------------------------
+           SUMMARY HTML
+        ----------------------------------------- */
+
+        const html = `
+
+            <section
+                id="emergencySummaryResult"
+                class="dashboard-section"
+            >
+
+                <div class="section-title">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            EMERGENCY ACCESS
+                        </p>
+
+                        <h3>
+                            🚨 Emergency Medical Summary
+                        </h3>
+
+                        <p>
+                            Quick-glance patient information
+                            for emergency reference.
+                        </p>
+
+                    </div>
+
+                    <span class="section-symbol">
+                        🩺
+                    </span>
+
+                </div>
+
+
+                <div class="critical-grid">
+
+                    <div class="info-item">
+                        <span>👤 Name</span>
+                        <strong>
+                            ${escapeHTML(
+                                patient.name ||
+                                "—"
+                            )}
+                        </strong>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span>🆔 Patient ID</span>
+                        <strong>
+                            ${escapeHTML(
+                                patient.id ||
+                                patient.patient_id ||
+                                patientId.toUpperCase()
+                            )}
+                        </strong>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span>🩸 Blood Group</span>
+                        <strong>
+                            ${escapeHTML(
+                                patient.blood_group ||
+                                "—"
+                            )}
+                        </strong>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span>🦠 Medical Condition</span>
+                        <strong>
+                            ${escapeHTML(
+                                condition
+                            )}
+                        </strong>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span>⚠️ Allergy</span>
+                        <strong>
+                            ${escapeHTML(
+                                allergy
+                            )}
+                        </strong>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span>🏥 Surgery</span>
+                        <strong>
+                            ${surgeryText}
+                        </strong>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span>💊 Last Prescription</span>
+                        <strong>
+                            ${escapeHTML(
+                                prescriptionText
+                            )}
+                        </strong>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span>📋 Last Medical Visit</span>
+                        <strong>
+                            ${escapeHTML(
+                                visitText
+                            )}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="search-row">
+
+                    <button
+                        type="button"
+                        onclick="closeEmergencySummary()"
+                    >
+                        Close Summary
+                    </button>
+
+                </div>
+
+            </section>
+        `;
+
+        const existing =
+            document.getElementById(
+                "emergencySummaryResult"
+            );
+
+        if (existing) {
+            existing.outerHTML = html;
+        } else {
+
+            const entry =
+                document.getElementById(
+                    "emergencySummaryEntry"
+                );
+
+            if (entry) {
+                entry.insertAdjacentHTML(
+                    "afterend",
+                    html
+                );
+            }
+        }
+
+        const result =
+            document.getElementById(
+                "emergencySummaryResult"
+            );
+
+        if (result) {
+            result.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Emergency Summary Error:",
+            error
+        );
+
+        alert(
+            "Unable to generate summary:\n" +
+            error.message
+        );
+    }
+}
+
+
+/* =========================================================
+   CLOSE EMERGENCY SUMMARY
+========================================================= */
+
+function closeEmergencySummary() {
+
+    const result =
+        document.getElementById(
+            "emergencySummaryResult"
+        );
+
+    if (result) {
+        result.remove();
+    }
+}
